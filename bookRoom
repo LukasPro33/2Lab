@@ -1,0 +1,51 @@
+static void bookRoom(int roomType) {
+    int roomNumber;
+    System.out.println("\nChoose room number from: ");
+    Room[] roomArray = null;
+
+    switch (roomType) {
+        case 1:
+            roomArray = hotel_ob.luxury_double_room;
+            break;
+        case 2:
+            roomArray = hotel_ob.deluxe_double_room;
+            break;
+        case 3:
+            roomArray = hotel_ob.luxury_single_room;
+            break;
+        case 4:
+            roomArray = hotel_ob.deluxe_single_room;
+            break;
+        default:
+            System.out.println("Invalid room type. Enter a valid option.");
+            return;
+    }
+
+    for (int j = 0; j < roomArray.length; j++) {
+        if (roomArray[j] == null) {
+            System.out.print(j + 1 + ",");
+        }
+    }
+
+    System.out.print("\nEnter room number: ");
+
+    try {
+        roomNumber = sc.nextInt();
+        roomNumber--;
+
+        if (roomNumber < 0 || roomNumber >= roomArray.length) {
+            throw new NotAvailable();
+        }
+
+        if (roomArray[roomNumber] != null) {
+            throw new NotAvailable();
+        }
+
+        CustDetails(roomType, roomNumber);
+        System.out.println("Room Booked");
+    } catch (InputMismatchException e) {
+        System.out.println("Invalid Option. Please enter a valid room number.");
+    } catch (NotAvailable e) {
+        System.out.println("Room is not available.");
+    }
+}
