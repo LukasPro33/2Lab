@@ -1,0 +1,48 @@
+static final double[] ROOM_CHARGES = {0, 4000, 3000, 2200, 1200};
+
+static String[] MENU_ITEMS = {"Sandwich", "Pasta", "Noodles", "Coke"};
+
+static void printFoodCharges(Food[] foodItems) {
+    System.out.println("=======================");
+    System.out.println("Item   Quantity    Price");
+    System.out.println("-----------------------");
+    double totalFoodPrice = 0;
+    for (Food item : foodItems) {
+        totalFoodPrice += item.price;
+        System.out.printf("%-10s%-10s%-10s%n", MENU_ITEMS[item.itemno - 1], item.quantity, item.price);
+    }
+    System.out.println("=======================");
+    System.out.println("Total Food Amount: " + totalFoodPrice);
+}
+
+static void calculateAndPrintBill(int roomNumber, int roomType) {
+    if (roomType < 1 || roomType > 4) {
+        System.out.println("Invalid room type");
+        return;
+    }
+
+    double amount = ROOM_CHARGES[roomType];
+
+    System.out.println("\n**");
+    System.out.println(" Bill:-");
+    System.out.println("**");
+
+    System.out.println("\nRoom Charge - " + ROOM_CHARGES[roomType]);
+
+    switch (roomType) {
+        case 1:
+            printFoodCharges(hotel_ob.luxury_doublerrom[roomNumber].food);
+            break;
+        case 2:
+            printFoodCharges(hotel_ob.deluxe_doublerrom[roomNumber].food);
+            break;
+        case 3:
+            printFoodCharges(hotel_ob.luxury_singleerrom[roomNumber].food);
+            break;
+        case 4:
+            printFoodCharges(hotel_ob.deluxe_singleerrom[roomNumber].food);
+            break;
+    }
+
+    System.out.println("\nTotal Amount- " + amount);
+}
